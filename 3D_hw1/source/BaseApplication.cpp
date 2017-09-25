@@ -124,6 +124,8 @@ void BaseApplication::createFrameListener(void)
     mTrayMgr->showLogo(OgreBites::TL_BOTTOMRIGHT);
     //mTrayMgr->hideCursor();
     mTrayMgr->showCursor();
+	//mTrayMgr->hideFrameStats();
+	//mTrayMgr->hideLogo();
 
     // create a params panel for displaying sample details
     Ogre::StringVector items;

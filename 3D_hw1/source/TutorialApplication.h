@@ -55,9 +55,13 @@ protected:
 	void createScene_00();
 	void createScene_01();
 
+	void createLight();
 	void setupAmbient();
 	void createPlane();
 	void createCubes();
+	void createPengiun();
+	void toggleViewPort();
+	void animatePenguin(int);
 
     bool keyPressed( const OIS::KeyEvent &arg );
     bool keyReleased( const OIS::KeyEvent &arg );
@@ -69,9 +73,12 @@ protected:
 	Ogre::Camera* mCameraArr[8];
 	Ogre::SceneManager* mSceneMgrArr[8];
 	OgreBites::SdkCameraMan* mCameraManArr[8];
-    //
-    // Add your own stuff.
-    //
+    
+	bool ZOrderReversed, animateFlag;
+	int frame;
+	Ogre::Vector3 position, acceleration, velocity;
+	double y;
+	Ogre::SceneNode* mPenguinSceneNode;
 };
 
 
