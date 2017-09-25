@@ -91,7 +91,87 @@ void BasicTutorial_00::createScene_00(void)
 
 	setupAmbient();
 	createPlane();
+	createCubes();
 
+	Light *light = mSceneMgr->createLight("Light1"); 
+	light->setType(Light::LT_POINT);   
+	light->setPosition(Vector3(150, 250, 100));  
+	light->setDiffuseColour(0.0, 1.0, 0.0);    
+	light->setSpecularColour(0.0, 1.0, 0.0);
+
+
+	// light = createLight("Light2"); //error  setType(Light::LT_POINT);  //error  setPosition(Vector3(-150, 300, 250));  //error  light->setDiffuseColour(0.5, 0.5, 0.5);    light->setSpecularColour(0.5, 0.5, 0.5);
+}
+
+void BasicTutorial_00::createCubes()
+{
+	int numCubes = 72; 
+	int L = 255;
+
+	float cubeSize, x, y, z, fx, h, x1, z1, unitF, circle_radius;
+	for (int i = 0; i < numCubes; ++i) {
+		
+		String name;  
+		
+		genNameUsingIndex("c", i, name); 
+		
+		Entity *ent = mSceneMgr->createEntity(name, "cube.mesh"); 
+		ent->setMaterialName("Examples/SphereMappedRustySteel");  
+		
+		AxisAlignedBox bb = ent->getBoundingBox();		
+		cubeSize = bb.getMaximum().x - bb.getMinimum().x;  
+		x = 0, y = 0, z = -125;  
+		
+		SceneNode *snode = mSceneMgr->getRootSceneNode()->createChildSceneNode();
+		snode->attachObject(ent);  
+		
+		// in range [0,1]  
+		fx = i / (double)(numCubes - 1); 
+		
+		
+		// height
+		h = (1+sin(fx*PI*4))*50; 
+		
+		circle_radius = 100;
+		x1 = circle_radius*cos(fx*PI*2);
+		z1 = circle_radius*sin(fx*PI*2);
+		unitF = 1.0/cubeSize/numCubes*L*0.8;
+		
+		snode->scale(unitF, h/cubeSize, unitF);
+		snode->setPosition(x1, 50, z1); 
+	} 
+
+	for (int i = 0; i < numCubes; ++i) {
+
+		String name;
+
+		genNameUsingIndex("c_a", i, name);
+
+		Entity *ent = mSceneMgr->createEntity(name, "cube.mesh");
+		ent->setMaterialName("Examples/Chrome");
+
+		AxisAlignedBox bb = ent->getBoundingBox();
+		cubeSize = bb.getMaximum().x - bb.getMinimum().x;
+		x = 0, y = 0, z = -125;
+
+		SceneNode *snode = mSceneMgr->getRootSceneNode()->createChildSceneNode();
+		snode->attachObject(ent);
+
+		fx = 2 * i / (double)(numCubes - 1); 
+		
+		//i from 0 to numCubes-1 
+		
+		x = fx*L - L/2.0; 
+		h = (1+cos(fx*3.1415*2.0))*20; 
+		
+		// height 
+		
+		Real unitF = 1.0/cubeSize/numCubes*L*0.8; 
+		
+		snode->scale(unitF, h/cubeSize, unitF); 
+		
+		snode->setPosition(x, 20, z + 300);
+	}
 }
 
 void BasicTutorial_00::setupAmbient()
@@ -120,6 +200,29 @@ void BasicTutorial_00::createPlane()
 	mSceneMgr->getRootSceneNode()->createChildSceneNode()->attachObject(groundEntity);
 
 	groundEntity->setMaterialName("Examples/Rockwall");
+
+	Plane plane2(Vector3::UNIT_Z, 0);
+
+	MeshPtr mPlane2 = MeshManager::getSingleton().createPlane(
+		"wall",
+		ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
+		plane2,
+		1500, 1500, // width, height
+		20, 20, // x- and y-segments
+		true, // normal
+		1, // num texture sets
+		5, 5, // x- and y-tiles
+		Vector3::UNIT_Y // upward vector
+	);
+
+	Ogre::Entity* wallEntity = mSceneMgr->createEntity("wall");
+	
+	SceneNode *nPlane2 = mSceneMgr->getRootSceneNode()->createChildSceneNode();
+	
+	nPlane2->attachObject(wallEntity);
+	nPlane2->setPosition(0, 750, -750);
+
+	wallEntity->setMaterialName("Examples/Rockwall");
 }
 
 void BasicTutorial_00::createScene_01(void) 

@@ -57,6 +57,7 @@ protected:
 
 	void setupAmbient();
 	void createPlane();
+	void createCubes();
 
     bool keyPressed( const OIS::KeyEvent &arg );
     bool keyReleased( const OIS::KeyEvent &arg );
