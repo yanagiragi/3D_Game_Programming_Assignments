@@ -60,6 +60,7 @@ void BasicTutorial_00::createViewport_00(void)
 	mCamera = mCameraArr[0];
 	Ogre::Viewport* vp = mWindow->addViewport(mCamera);
 	vp->setBackgroundColour(Ogre::ColourValue(0,0.0,1.0));
+	//vp->setBackgroundColour(Ogre::ColourValue(0,0.0,0.0));
 	mCamera->setAspectRatio(
 		Ogre::Real(vp->getActualWidth()) / Ogre::Real(vp->getActualHeight()));
 
@@ -93,14 +94,32 @@ void BasicTutorial_00::createScene_00(void)
 	createPlane();
 	createCubes();
 
-	Light *light = mSceneMgr->createLight("Light1"); 
-	light->setType(Light::LT_POINT);   
-	light->setPosition(Vector3(150, 250, 100));  
-	light->setDiffuseColour(0.0, 1.0, 0.0);    
-	light->setSpecularColour(0.0, 1.0, 0.0);
+	Entity *ent = mSceneMgr->createEntity("penguin", "penguin.mesh"); 
+	SceneNode *snode = mSceneMgr->getRootSceneNode()->createChildSceneNode();
+	snode->attachObject(ent);
+	snode->setPosition(Ogre::Vector3(0, 50, 0));
 
+	Entity *s_ent = mSceneMgr->createEntity("penguin2", "penguin.mesh"); 
+	SceneNode *ss_node = mSceneMgr->getRootSceneNode()->createChildSceneNode();
+	ss_node->attachObject(s_ent);
+	ss_node->setPosition(Ogre::Vector3(150, 50, 0));
+	ss_node->setOrientation(Ogre::Quaternion(1.0, 0, -1.0, 0));
+	ss_node->setScale(Ogre::Vector3(0.5, 0.5, 0.5));
+  
+	// Point light
+	Ogre::Light* pointLight = mSceneMgr->createLight("PointLight");
+	pointLight->setType(Ogre::Light::LT_POINT);
+	pointLight->setDiffuseColour(.3, .3, .3);
+	pointLight->setSpecularColour(.3, .3, .3); 
+	pointLight->setPosition(Ogre::Vector3(50, 50, 50));
 
-	// light = createLight("Light2"); //error  setType(Light::LT_POINT);  //error  setPosition(Vector3(-150, 300, 250));  //error  light->setDiffuseColour(0.5, 0.5, 0.5);    light->setSpecularColour(0.5, 0.5, 0.5);
+	// Point light
+	Ogre::Light* directionalLight = mSceneMgr->createLight("DirectionalLight");
+	directionalLight->setType(Ogre::Light::LT_DIRECTIONAL);
+	directionalLight->setDiffuseColour(.4, 0, 0);
+	directionalLight->setSpecularColour(.4, 0, 0); 
+	
+
 }
 
 void BasicTutorial_00::createCubes()
@@ -127,7 +146,6 @@ void BasicTutorial_00::createCubes()
 		
 		// in range [0,1]  
 		fx = i / (double)(numCubes - 1); 
-		
 		
 		// height
 		h = (1+sin(fx*PI*4))*50; 
@@ -176,7 +194,7 @@ void BasicTutorial_00::createCubes()
 
 void BasicTutorial_00::setupAmbient()
 {
-	ColourValue(0.5, 0.5, 0.5);
+	mSceneMgr->setAmbientLight(Ogre::ColourValue(0.5, 0.5, 0.5));
 	mSceneMgr->setShadowTechnique(SHADOWTYPE_STENCIL_ADDITIVE);
 
 }
@@ -199,7 +217,7 @@ void BasicTutorial_00::createPlane()
 	Ogre::Entity* groundEntity = mSceneMgr->createEntity("ground");
 	mSceneMgr->getRootSceneNode()->createChildSceneNode()->attachObject(groundEntity);
 
-	groundEntity->setMaterialName("Examples/Rockwall");
+	groundEntity->setMaterialName("Examples/BumpyMetal");
 
 	Plane plane2(Vector3::UNIT_Z, 0);
 
