@@ -64,14 +64,14 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\..\include\OGRE;..\..\include\OIS;..\..\boost_1_42</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>include\OGRE;include\OIS;include\boost_1_42;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <OutputFile>$(OutDir)/demo_hello.exe</OutputFile>
       <AdditionalLibraryDirectories>..\..\lib\Release;..\..\lib\opt\;..\..\boost_1_42\lib</AdditionalLibraryDirectories>
-      <AdditionalDependencies>..\..\lib\debug\OgreMain_d.lib;..\..\boost_1_42\lib\libboost_thread-vc100-mt-1_42.lib;..\..\boost_1_42\lib\libboost_date_time-vc100-mt-1_42.lib;..\..\lib\debug\OgreRTShaderSystem_d.lib;..\..\lib\debug\OIS_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>lib\OGRE\debug\OgreMain_d.lib;lib\OGRE\debug\OgreRTShaderSystem_d.lib;lib\OGRE\debug\OIS_d.lib;lib\boost_1_42\libboost_thread-vc100-mt-1_42.lib;lib\boost_1_42\libboost_date_time-vc100-mt-1_42.lib;lib\boost_1_42\libboost_thread-vc100-mt-gd-1_42.lib;lib\boost_1_42\libboost_date_time-vc100-mt-gd-1_42.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -92,7 +92,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <OutputFile>$(OutDir)/demo_hello.exe</OutputFile>
       <AdditionalLibraryDirectories>\lib\Release;\lib\opt\;include\boost_1_42\lib</AdditionalLibraryDirectories>
-      <AdditionalDependencies>lib\release\OgreMain.lib;include\boost_1_42\lib\libboost_thread-vc100-mt-1_42.lib;include\boost_1_42\lib\libboost_date_time-vc100-mt-1_42.lib;lib\release\OgreRTShaderSystem.lib;lib\release\OIS.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>lib\OGRE\release\OgreMain.lib;lib\OGRE\release\OgreRTShaderSystem.lib;lib\OGRE\release\OgreTerrain.lib;lib\OGRE\release\OgreProperty.lib;lib\OGRE\release\OIS.lib;lib\OGRE\release\OgrePaging.lib;include\boost_1_42\lib\libboost_thread-vc100-mt-1_42.lib;include\boost_1_42\lib\libboost_date_time-vc100-mt-1_42.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
