@@ -12,8 +12,12 @@
 
 # Build results
 [Dd]ebug/
+!3D_hw1/lib/OGRE/[Dd]ebug/
+!3D_quiz3/lib/OGRE/[Dd]ebug/
 [Dd]ebugPublic/
 [Rr]elease/
+!3D_hw1/lib/OGRE/[Rr]elease/
+!3D_quiz3/lib/OGRE/[Rr]elease/
 [Rr]eleases/
 x64/
 x86/
@@ -21,6 +25,7 @@ bld/
 [Bb]in/
 [Oo]bj/
 [Ll]og/
+
 
 # Visual Studio 2015 cache/options directory
 .vs/
